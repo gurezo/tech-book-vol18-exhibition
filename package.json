@@ -1,0 +1,14 @@
+{
+  "name": "tech-book-vol18-exhibition",
+  "version": "1.0.0",
+  "description": "this is exhibition of tech book vol18 by chirimen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@chirimen/neopixel-i2c": "^1.0.3"
+  }
+}
