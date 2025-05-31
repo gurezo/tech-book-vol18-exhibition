@@ -1,13 +1,10 @@
 import NPIX from '@chirimen/neopixel-i2c';
-import { sleep } from './gpio.js';
-import { requestI2CAccess } from './node_modules/node-web-i2c/index.js';
+import { sleep } from './sleep.js';
 
 const neoPixels = 7;
 
-export async function initNeoPixel() {
-  const i2cAccess = await requestI2CAccess();
-  const port = i2cAccess.ports.get(1);
-  const npix = new NPIX(port, 0x41);
+export async function initNeoPixel(i2cPort) {
+  const npix = new NPIX(i2cPort, 0x41);
   await npix.init(neoPixels);
   return npix;
 }
@@ -63,15 +60,10 @@ export async function nPixTest3(npix, pattern) {
   }
 }
 
-export async function blinkNeoPixel() {
-  const npix = await initNeoPixel();
+export async function blinkNeoPixel(npix) {
+  await nPixTest1(npix);
+  await nPixTest2(npix, patterns);
+  await nPixTest3(npix, patterns.pattern4);
 
-  // 無限ループ
-  for (;;) {
-    await nPixTest1(npix);
-    await nPixTest2(npix, patterns);
-    await nPixTest3(npix, patterns.pattern4);
-
-    await npix.setGlobal(0, 0, 0);
-  }
+  await npix.setGlobal(0, 0, 0);
 }
