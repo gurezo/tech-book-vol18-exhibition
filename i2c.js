@@ -62,3 +62,16 @@ export async function nPixTest3(npix, pattern) {
     await sleep(200);
   }
 }
+
+export async function blinkNeoPixel() {
+  const npix = await initNeoPixel();
+
+  // 無限ループ
+  for (;;) {
+    await nPixTest1(npix);
+    await nPixTest2(npix, patterns);
+    await nPixTest3(npix, patterns.pattern4);
+
+    await npix.setGlobal(0, 0, 0);
+  }
+}
